@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>カイロプラクティック ひだまり｜愛知県小牧市の整体・カイロプラクティック院</title>
+<meta name="description" content="愛知県小牧市北外山。縁側と畳のある、くつろぎの施術院。若々しく、元気に、楽しく。名鉄間内駅から徒歩5分。完全予約制。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #fffef9;
+    --cream: #faf7f0;
+    --cream2: #f3ede1;
+    --text: #2d2820;
+    --text-mid: #5a5044;
+    --text-light: #9c9082;
+    --green: #7a9e7e;
+    --green-light: #c8dfc9;
+    --green-pale: #eef4ee;
+    --gold: #b8973a;
+    --gold-pale: #f5edd8;
+    --border: #e0d8cc;
+    --shadow: rgba(100,80,50,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--white);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.9;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER / NAV ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: rgba(255,254,249,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+
+  .logo {
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+
+  .logo-ja {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.1em;
+  }
+
+  .logo-en {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--green);
+    text-transform: uppercase;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  nav a {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  nav a:hover { color: var(--green); }
+
+  .nav-reserve {
+    background: var(--green);
+    color: #fff !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 0.78rem !important;
+    transition: background 0.25s !important;
+  }
+  .nav-reserve:hover { background: #5c7e60 !important; color: #fff !important; }
+
+  /* hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--text);
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+
+  /* mobile nav */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 70px; left: 0; right: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    z-index: 199;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-nav .nav-reserve {
+    text-align: center;
+    border-bottom: none;
+    margin-top: 0.5rem;
+    color: #fff !important;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    padding-top: 70px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  /* tatami pattern bg */
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(180,160,120,0.07) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(180,160,120,0.07) 40px);
+    pointer-events: none;
+  }
+
+  /* sunlight streaks */
+  #hero::after {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: 10%;
+    width: 60%;
+    height: 130%;
+    background: linear-gradient(120deg,
+      rgba(255,240,200,0) 0%,
+      rgba(255,240,180,0.18) 40%,
+      rgba(255,230,160,0.08) 70%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    color: var(--green);
+    border: 1px solid var(--green-light);
+    padding: 0.3rem 0.9rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+    background: var(--green-pale);
+  }
+
+  .hero-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title span { color: var(--green); }
+
+  .hero-copy {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 2;
+    margin-bottom: 2.5rem;
+    max-width: 30rem;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--green);
+    color: #fff;
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border-radius: 3rem;
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
+    transition: background 0.25s, transform 0.2s;
+    box-shadow: 0 4px 16px rgba(122,158,126,0.3);
+  }
+  .btn-primary:hover { background: #5c7e60; transform: translateY(-1px); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-mid);
+    text-decoration: none;
+    padding: 0.85rem 1.5rem;
+    border-radius: 3rem;
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
+    border: 1px solid var(--border);
+    background: var(--white);
+    transition: border-color 0.25s, color 0.25s;
+  }
+  .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+  .hero-image-area {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-card {
+    background: var(--white);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    box-shadow: 0 8px 40px var(--shadow);
+    width: 100%;
+    max-width: 380px;
+    border: 1px solid var(--border);
+    animation: floatCard 4s ease-in-out infinite;
+  }
+
+  @keyframes floatCard {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .hero-card-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, var(--cream2), var(--green-pale));
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--text-light);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* stylized room illustration */
+  .hero-card-img::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(180,155,100,0.15) 0px, rgba(180,155,100,0.15) 8px,
+      rgba(200,175,120,0.08) 8px, rgba(200,175,120,0.08) 16px
+    );
+  }
+  .hero-card-img::after {
+    content: '縁側のある\Aくつろぎの施術院';
+    white-space: pre;
+    text-align: center;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.85rem;
+    line-height: 2;
+    letter-spacing: 0.15em;
+    color: var(--text-mid);
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .hero-info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.82rem;
+    color: var(--text-mid);
+  }
+
+  .hero-info-icon {
+    width: 28px; height: 28px;
+    background: var(--green-pale);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  /* ── SECTION BASE ── */
+  .section { padding: 6rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-head { margin-bottom: 3.5rem; }
+
+  .section-en {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    background: var(--green);
+    margin-top: 1rem;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--white); border-top: 1px solid var(--border); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    margin-bottom: 1.2rem;
+    line-height: 2;
+  }
+
+  .about-concept {
+    background: var(--green-pale);
+    border-left: 3px solid var(--green);
+    padding: 1.5rem;
+    border-radius: 0 0.75rem 0.75rem 0;
+    margin: 2rem 0;
+  }
+
+  .about-concept p {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.05rem;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.9;
+  }
+
+  .about-profile {
+    background: var(--cream);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    border: 1px solid var(--border);
+  }
+
+  .profile-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .profile-sub {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.2rem;
+  }
+
+  .profile-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .profile-tag {
+    background: var(--white);
+    border: 1px solid var(--border);
+    font-size: 0.72rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    color: var(--text-mid);
+  }
+
+  .profile-desc {
+    font-size: 0.83rem;
+    color: var(--text-mid);
+    line-height: 2;
+  }
+
+  .about-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .feature-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    text-align: center;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .feature-card:hover { box-shadow: 0 4px 20px var(--shadow); transform: translateY(-2px); }
+
+  .feature-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .feature-name { font-size: 0.78rem; font-weight: 500; color: var(--text); margin-bottom: 0.3rem; }
+  .feature-desc { font-size: 0.7rem; color: var(--text-light); line-height: 1.7; }
+
+  /* ── MENU / PRICE ── */
+  #menu { background: var(--cream); border-top: 1px solid var(--border); }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .menu-card {
+    background: var(--white);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    position: relative;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .menu-card:hover { box-shadow: 0 6px 30px var(--shadow); transform: translateY(-2px); }
+
+  .menu-card.featured {
+    border-color: var(--green-light);
+    background: linear-gradient(135deg, var(--white), var(--green-pale));
+  }
+
+  .menu-badge {
+    position: absolute;
+    top: -0.7rem; right: 1.5rem;
+    background: var(--green);
+    color: #fff;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.8rem;
+    border-radius: 2rem;
+  }
+
+  .menu-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+
+  .menu-time {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .menu-price {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .menu-price span { font-size: 1rem; }
+
+  .menu-desc {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    line-height: 1.9;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── SYMPTOMS ── */
+  #symptoms { background: var(--white); border-top: 1px solid var(--border); }
+
+  .symptom-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .symptom-item {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 2rem;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .symptom-item:hover {
+    background: var(--green-pale);
+    border-color: var(--green-light);
+    color: var(--green);
+  }
+
+  /* ── BLOG / DIARY ── */
+  #blog { background: var(--cream); border-top: 1px solid var(--border); }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .blog-card {
+    background: var(--white);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.25s, transform 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+  .blog-card:hover { box-shadow: 0 6px 30px var(--shadow); transform: translateY(-3px); }
+
+  .blog-thumb {
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, var(--cream2), var(--green-pale));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    color: var(--text-light);
+    letter-spacing: 0.15em;
+  }
+
+  .blog-body {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-date {
+    font-size: 0.68rem;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+  }
+
+  .blog-tag {
+    font-size: 0.62rem;
+    background: var(--green-pale);
+    color: var(--green);
+    padding: 0.15rem 0.6rem;
+    border-radius: 2rem;
+  }
+
+  .blog-title {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .blog-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    color: var(--green);
+    text-decoration: none;
+    margin-top: 2rem;
+    padding: 0.7rem 1.5rem;
+    border: 1px solid var(--green-light);
+    border-radius: 2rem;
+    transition: all 0.25s;
+    align-self: flex-start;
+  }
+  .blog-more:hover { background: var(--green-pale); }
+
+  .blog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+
+  /* ── ACCESS ── */
+  #access { background: var(--white); border-top: 1px solid var(--border); }
+
+  .access-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .info-table { width: 100%; border-collapse: collapse; }
+
+  .info-table tr { border-bottom: 1px solid var(--border); }
+  .info-table tr:first-child { border-top: 1px solid var(--border); }
+
+  .info-table th {
+    padding: 1rem 1rem 1rem 0;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    text-align: left;
+    white-space: nowrap;
+    width: 7rem;
+    vertical-align: top;
+  }
+
+  .info-table td {
+    padding: 1rem 0;
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.8;
+  }
+
+  .info-table a { color: var(--green); text-decoration: none; }
+  .info-table a:hover { text-decoration: underline; }
+
+  .map-area {
+    background: var(--cream);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .map-placeholder {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    line-height: 2;
+    letter-spacing: 0.1em;
+  }
+
+  .map-embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--green), #5c7e60);
+    padding: 5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.04) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.04) 40px);
+  }
+
+  .cta-banner h2 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+
+  .cta-banner p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .cta-banner .btn-white {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #fff;
+    color: var(--green);
+    text-decoration: none;
+    padding: 0.9rem 2.5rem;
+    border-radius: 3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    position: relative;
+    transition: opacity 0.2s;
+  }
+  .cta-banner .btn-white:hover { opacity: 0.9; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.7);
+    padding: 4rem 2rem 2rem;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .footer-brand .logo-ja { color: rgba(255,255,255,0.9); }
+  .footer-brand .logo-en { color: var(--green-light); }
+  .footer-brand p {
+    font-size: 0.8rem;
+    line-height: 2;
+    margin-top: 1rem;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .footer-col h4 {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6rem; }
+  .footer-col ul a {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--green-light); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.35); }
+
+  .footer-sns {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .footer-sns a {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .footer-sns a:hover { background: var(--green); color: #fff; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 800px) {
+    .header-inner { padding: 0 1.25rem; }
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; padding: 2.5rem 1.25rem; }
+    .hero-image-area { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-features { grid-template-columns: repeat(2, 1fr); }
+    .menu-grid { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .access-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    .section { padding: 4rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-ja">カイロプラクティック　ひだまり</span>
+      <span class="logo-en">Chiropractic Hidamari</span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#about">院長・院内紹介</a></li>
+        <li><a href="#menu">料金メニュー</a></li>
+        <li><a href="#symptoms">こんなお悩みに</a></li>
+        <li><a href="#blog">ひだまり日常</a></li>
+        <li><a href="#access">アクセス</a></li>
+        <li><a href="https://beauty.rakuten.co.jp/s8000037649/" target="_blank" class="nav-reserve">ご予約はこちら</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav">
+  <a href="#about" onclick="this.parentElement.classList.remove('open')">院長・院内紹介</a>
+  <a href="#menu" onclick="this.parentElement.classList.remove('open')">料金メニュー</a>
+  <a href="#symptoms" onclick="this.parentElement.classList.remove('open')">こんなお悩みに</a>
+  <a href="#blog" onclick="this.parentElement.classList.remove('open')">ひだまり日常</a>
+  <a href="#access" onclick="this.parentElement.classList.remove('open')">アクセス</a>
+  <a href="https://beauty.rakuten.co.jp/s8000037649/" target="_blank" class="nav-reserve">ご予約はこちら</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-tag">愛知県小牧市 完全予約制</span>
+      <h1 class="hero-title">
+        縁側と畳の、<br>
+        <span>くつろぎの施術院。</span>
+      </h1>
+      <p class="hero-copy">
+        身体の痛みや辛さを話してください。<br>
+        「若々しく！元気に！楽しく！」を理念に、<br>
+        カイロプラクティックを通じて<br>
+        あなたの健康をサポートします。
+      </p>
+      <div class="hero-btns">
+        <a href="https://beauty.rakuten.co.jp/s8000037649/" target="_blank" class="btn-primary">📅 今すぐ予約する</a>
+        <a href="#about" class="btn-secondary">院内を見る →</a>
+      </div>
+    </div>
+    <div class="hero-image-area">
+      <div class="hero-card">
+        <div class="hero-card-img"></div>
+        <div class="hero-info-row">
+          <div class="hero-info-item">
+            <span class="hero-info-icon">📍</span>
+            <span>小牧市北外山1456-3<br>ひだまりマンション101号室</span>
+          </div>
+          <div class="hero-info-item">
+            <span class="hero-info-icon">🚶</span>
+            <span>名鉄間内駅から徒歩5分</span>
+          </div>
+          <div class="hero-info-item">
+            <span class="hero-info-icon">🕙</span>
+            <span>10:00〜22:00（完全予約制）</span>
+          </div>
+          <div class="hero-info-item">
+            <span class="hero-info-icon">🚗</span>
+            <span>駐車場3台完備（南側C・D・E）</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-head">
+          <span class="section-en">About</span>
+          <h2 class="section-title">院長・院内紹介</h2>
+        </div>
+        <div class="about-concept">
+          <p>畳のいぐさを活用した自然派を徹底し、<br>祖父・祖母の家にいるような<br>居心地の良い空間で施術いたします。</p>
+        </div>
+        <p>縁側から光が差し込み、夏は涼しい風が吹き、冬は縁側の暖かさを感じられる施術空間。患者様の心も身体も癒します。</p>
+        <p>小さなお子様や子育て中のママさんにも安心。足の悪いご高齢の方でも安心してお越しいただけます。</p>
+        <div class="about-features">
+          <div class="feature-card">
+            <div class="feature-icon">🌿</div>
+            <div class="feature-name">自然派・いぐさ畳</div>
+            <div class="feature-desc">天然素材にこだわった施術空間</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🚗</div>
+            <div class="feature-name">駐車場3台完備</div>
+            <div class="feature-desc">南側C・D・Eをご利用ください</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">👶</div>
+            <div class="feature-name">お子様連れOK</div>
+            <div class="feature-desc">ママさんも安心してご来院を</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🌙</div>
+            <div class="feature-name">夜22時まで受付</div>
+            <div class="feature-desc">お仕事帰りにも気軽にどうぞ</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:0.15s">
+        <div class="about-profile">
+          <div class="profile-name">小川 健一（おがわ けんいち）</div>
+          <div class="profile-sub">カイロプラクティック ひだまり 院長</div>
+          <div class="profile-tags">
+            <span class="profile-tag">1978年12月11日生まれ</span>
+            <span class="profile-tag">血液型 O型</span>
+            <span class="profile-tag">全国健康生活普及会 認定</span>
+          </div>
+          <div class="profile-desc">
+            <p>「将来への不安・自身の身体・家族の健康への思い」からカイロプラクティックの道へ。</p>
+            <br>
+            <p>平成22年1月、全国健康生活普及会 初級事業セミナーに合格。以来、小牧市・西区・北名古屋市を中心に施術活動を続けています。</p>
+            <br>
+            <p>「<strong>若々しく！元気に！楽しく！</strong>」を理念に、カイロを通じて地域の皆様の健康をサポートいたします。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU / PRICE -->
+<section id="menu" class="section">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-en">Menu &amp; Price</span>
+      <h2 class="section-title">料金メニュー</h2>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card featured reveal">
+        <span class="menu-badge">人気メニュー</span>
+        <div class="menu-name">基本施術</div>
+        <div class="menu-time">⏱ 所要時間 約60分</div>
+        <div class="menu-price">¥4,500<span></span></div>
+        <div class="menu-desc">
+          その時の症状・これからの改善計画を含めた、施術・運動指導・生活環境改善のトータルカウンセリングを行います。
+        </div>
+      </div>
+      <div class="menu-card reveal" style="transition-delay:0.1s">
+        <div class="menu-name">初診</div>
+        <div class="menu-time">⏱ 所要時間 約90分</div>
+        <div class="menu-price" style="font-size:1.1rem;color:var(--text-mid);line-height:1.6">カウンセリング<br>+施術+検査込み</div>
+        <div class="menu-desc">
+          初めての方には、今のお悩みを詳しく伺い、身体の状態も確認。お互いに納得の上で施術を行い、今後の施術計画をご相談します。
+        </div>
+      </div>
+      <div class="menu-card reveal" style="transition-delay:0.2s">
+        <div class="menu-name">カイロ＋膝下マッサージ</div>
+        <div class="menu-time">⏱ 所要時間 約2時間</div>
+        <div class="menu-price">¥6,000<span></span></div>
+        <div class="menu-desc">
+          通常のカイロプラクティック施術に加え、ふくらはぎや脛など、疲れのたまりやすい部位を重点的に筋肉調整。リンパの流れも促します。
+        </div>
+      </div>
+      <div class="menu-card reveal" style="transition-delay:0.3s">
+        <div class="menu-name">学生・65歳以上 割引</div>
+        <div class="menu-time">⏱ 小学生〜大学生 / 65歳以上の方</div>
+        <div class="menu-price">¥2,500<span></span></div>
+        <div class="menu-desc">
+          学生さん（小学生〜大学生）と、65歳以上の方への特別料金です。身体のことで悩んでいる方は、お気軽にご相談ください。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SYMPTOMS -->
+<section id="symptoms" class="section">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-en">Symptoms</span>
+      <h2 class="section-title">こんなお悩みに対応します</h2>
+    </div>
+    <div class="symptom-list reveal">
+      <span class="symptom-item">肩こり</span>
+      <span class="symptom-item">腰痛</span>
+      <span class="symptom-item">頭痛</span>
+      <span class="symptom-item">首の痛み</span>
+      <span class="symptom-item">五十肩</span>
+      <span class="symptom-item">肩甲骨の痛み</span>
+      <span class="symptom-item">ぎっくり腰</span>
+      <span class="symptom-item">坐骨神経痛</span>
+      <span class="symptom-item">股関節の痛み</span>
+      <span class="symptom-item">膝の痛み</span>
+      <span class="symptom-item">しびれ</span>
+      <span class="symptom-item">慢性疲労</span>
+      <span class="symptom-item">寝違え</span>
+      <span class="symptom-item">むち打ち</span>
+      <span class="symptom-item">めまい</span>
+      <span class="symptom-item">眼精疲労</span>
+      <span class="symptom-item">あごの痛み</span>
+      <span class="symptom-item">背部痛</span>
+      <span class="symptom-item">生理痛</span>
+      <span class="symptom-item">自律神経失調</span>
+      <span class="symptom-item">妊娠中の痛み</span>
+      <span class="symptom-item">冷え・むくみ</span>
+      <span class="symptom-item">便秘・下痢</span>
+      <span class="symptom-item">慢性痛</span>
+      <span class="symptom-item">骨盤矯正</span>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG / DIARY -->
+<section id="blog" class="section">
+  <div class="section-inner">
+    <div class="blog-header reveal">
+      <div>
+        <span class="section-en">Journal</span>
+        <h2 class="section-title">ひだまりの日常</h2>
+      </div>
+      <a href="#" class="blog-more">すべての記事を見る →</a>
+    </div>
+    <div class="blog-grid">
+      <a href="https://chiropractic-hidamari.amebaownd.com/posts/58269223" target="_blank" class="blog-card reveal">
+        <div class="blog-thumb">PHOTO</div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-date">2025.12.13</span>
+            <span class="blog-tag">お知らせ</span>
+          </div>
+          <div class="blog-title">「良いお年を！」を伝える時期になりました。</div>
+        </div>
+      </a>
+      <a href="https://chiropractic-hidamari.amebaownd.com/posts/57105687" target="_blank" class="blog-card reveal" style="transition-delay:0.1s">
+        <div class="blog-thumb">PHOTO</div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-date">2025.07.12</span>
+            <span class="blog-tag">日常</span>
+          </div>
+          <div class="blog-title">初めて半年。ひだまり家庭菜園ツアー</div>
+        </div>
+      </a>
+      <a href="https://chiropractic-hidamari.amebaownd.com/posts/57021700" target="_blank" class="blog-card reveal" style="transition-delay:0.2s">
+        <div class="blog-thumb">PHOTO</div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-date">2025.06.21</span>
+            <span class="blog-tag">日常</span>
+          </div>
+          <div class="blog-title">申し訳ありませんでした。</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESS -->
+<section id="access" class="section">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-en">Access</span>
+      <h2 class="section-title">アクセス・院内情報</h2>
+    </div>
+    <div class="access-grid">
+      <div class="reveal">
+        <table class="info-table">
+          <tr>
+            <th>院名</th>
+            <td>カイロプラクティック ひだまり</td>
+          </tr>
+          <tr>
+            <th>院長</th>
+            <td>小川 健一</td>
+          </tr>
+          <tr>
+            <th>住所</th>
+            <td>〒485-0023<br>愛知県小牧市北外山1456-3<br>ひだまりマンション101号室</td>
+          </tr>
+          <tr>
+            <th>電話</th>
+            <td><a href="tel:08052473547">080-5247-3547</a></td>
+          </tr>
+          <tr>
+            <th>営業時間</th>
+            <td>10:00〜22:00（完全予約制）</td>
+          </tr>
+          <tr>
+            <th>最寄駅</th>
+            <td>名鉄小牧線「間内駅」<br>徒歩約5分</td>
+          </tr>
+          <tr>
+            <th>駐車場</th>
+            <td>3台完備<br>マンション南側C・D・Eをご利用ください</td>
+          </tr>
+          <tr>
+            <th>決済</th>
+            <td>カード払いOK</td>
+          </tr>
+          <tr>
+            <th>SNS</th>
+            <td>
+              <a href="https://goo.gl/TTWY4k" target="_blank">LINE公式アカウント</a>　／　
+              <a href="https://www.instagram.com/hidamari.chiro/" target="_blank">Instagram</a>　／　
+              <a href="https://www.facebook.com/ChairoHidamari/" target="_blank">Facebook</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="map-area reveal" style="transition-delay:0.15s">
+        <iframe
+          class="map-embed"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3259.1!2d136.98!3d35.30!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z44Ki44Kk44Kz44OX44Op44Kv44OG44Kj44OD44Kv44Gy44Gg44G3!5e0!3m2!1sja!2sjp!4v1000000000000"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="カイロプラクティックひだまり 地図">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <h2>まずはお気軽にご予約ください</h2>
+  <p>完全予約制 / 楽天ビューティよりご予約いただけます</p>
+  <a href="https://beauty.rakuten.co.jp/s8000037649/" target="_blank" class="btn-white">📅 ご予約はこちら（楽天ビューティ）</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <span class="logo-ja">カイロプラクティック　ひだまり</span><br>
+          <span class="logo-en">Chiropractic Hidamari</span>
+        </a>
+        <p>「若々しく！元気に！楽しく！」<br>縁側と畳のある、くつろぎの施術院<br>愛知県小牧市 完全予約制</p>
+      </div>
+      <div class="footer-col">
+        <h4>メニュー</h4>
+        <ul>
+          <li><a href="#about">院長・院内紹介</a></li>
+          <li><a href="#menu">料金メニュー</a></li>
+          <li><a href="#symptoms">こんなお悩みに</a></li>
+          <li><a href="#blog">ひだまりの日常</a></li>
+          <li><a href="#access">アクセス</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:08052473547">📞 080-5247-3547</a></li>
+          <li><a href="https://beauty.rakuten.co.jp/s8000037649/" target="_blank">📅 ご予約（楽天ビューティ）</a></li>
+          <li><a href="https://goo.gl/TTWY4k" target="_blank">💬 LINE公式</a></li>
+          <li><a href="https://www.instagram.com/hidamari.chiro/" target="_blank">📷 Instagram</a></li>
+          <li><a href="https://www.facebook.com/ChairoHidamari/" target="_blank">👤 Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 カイロプラクティック ひだまり. All Rights Reserved.</p>
+      <div class="footer-sns">
+        <a href="https://goo.gl/TTWY4k" target="_blank" title="LINE">L</a>
+        <a href="https://www.instagram.com/hidamari.chiro/" target="_blank" title="Instagram">IG</a>
+        <a href="https://www.facebook.com/ChairoHidamari/" target="_blank" title="Facebook">FB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
