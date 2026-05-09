@@ -1,0 +1,181 @@
+---
+---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ひだまりの日常｜カイロプラクティック ひだまり</title>
+<meta name="description" content="カイロプラクティック ひだまりのブログ。院の日常や健康コラムをお届けします。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #fffef9;
+    --cream: #faf7f0;
+    --cream2: #f3ede1;
+    --text: #2d2820;
+    --text-mid: #5a5044;
+    --text-light: #9c9082;
+    --accent: #ca9261;
+    --accent-dark: #a8744a;
+    --accent-light: #e8c9a8;
+    --accent-pale: #faf3eb;
+    --border: #e0d8cc;
+    --shadow: rgba(100,70,40,0.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.9;
+  }
+
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(255,254,249,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between; height: 68px;
+  }
+  .logo { text-decoration: none; display: flex; align-items: center; gap: 0.75rem; }
+  .logo-icon { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+  .logo-text { display: flex; flex-direction: column; }
+  .logo-ja { font-family: 'Shippori Mincho', serif; font-size: 0.95rem; font-weight: 600; color: var(--text); letter-spacing: 0.08em; line-height: 1.2; white-space: nowrap; }
+  .logo-en { font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+  .header-back {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; color: var(--text-mid); text-decoration: none;
+    padding: 0.45rem 1rem; border: 1px solid var(--border); border-radius: 2rem;
+    transition: all 0.2s;
+  }
+  .header-back:hover { border-color: var(--accent); color: var(--accent); }
+
+  .page-header {
+    padding: 120px 2rem 4rem;
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .page-en { font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; display: block; }
+  .page-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 600; letter-spacing: 0.08em; color: var(--text);
+  }
+  .page-desc { font-size: 0.88rem; color: var(--text-light); margin-top: 0.75rem; }
+
+  .blog-list-wrap {
+    max-width: 1100px; margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .blog-card {
+    background: var(--white); border-radius: 1.25rem; overflow: hidden;
+    border: 1px solid var(--border); text-decoration: none; color: inherit;
+    display: flex; flex-direction: column;
+    transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+  }
+  .blog-card:hover { box-shadow: 0 6px 30px var(--shadow); transform: translateY(-3px); border-color: var(--accent-light); }
+  .blog-thumb { aspect-ratio: 16/9; overflow: hidden; }
+  .blog-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .blog-card:hover .blog-thumb img { transform: scale(1.05); }
+  .blog-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+  .blog-meta { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
+  .blog-date { font-size: 0.66rem; color: var(--text-light); letter-spacing: 0.08em; }
+  .blog-tag { font-size: 0.6rem; background: var(--accent-pale); color: var(--accent-dark); padding: 0.15rem 0.6rem; border-radius: 2rem; border: 1px solid var(--accent-light); }
+  .blog-title { font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.7; flex: 1; }
+
+  .blog-links {
+    display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+  }
+  .blog-links a {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.82rem; color: var(--accent); text-decoration: none;
+    padding: 0.65rem 1.6rem; border: 1px solid var(--accent-light); border-radius: 2rem;
+    background: var(--white); transition: all 0.25s; min-width: 220px; justify-content: center;
+  }
+  .blog-links a:hover { background: var(--accent-pale); border-color: var(--accent); }
+  .blog-links .past-link {
+    font-size: 0.78rem; color: var(--text-light);
+    border-color: var(--border);
+  }
+  .blog-links .past-link:hover { color: var(--accent); }
+
+  footer { background: var(--text); color: rgba(255,255,255,0.65); padding: 2.5rem 2rem; text-align: center; }
+  .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.3); }
+
+  @media (max-width: 800px) {
+    .blog-grid { grid-template-columns: 1fr; }
+    .blog-list-wrap { padding: 3rem 1.25rem 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <img src="/img_logo.png" alt="ひだまりロゴ" class="logo-icon">
+      <div class="logo-text">
+        <span class="logo-ja">カイロプラクティック　ひだまり</span>
+        <span class="logo-en">Chiropractic Hidamari</span>
+      </div>
+    </a>
+    <a href="/" class="header-back">← ホームへ</a>
+  </div>
+</header>
+
+<div class="page-header">
+  <span class="page-en">Journal</span>
+  <h1 class="page-title">ひだまりの日常</h1>
+  <p class="page-desc">院の日常や健康コラムをお届けします</p>
+</div>
+
+<div class="blog-list-wrap">
+
+  <div class="blog-grid">
+    {% for post in site.posts %}
+    <a href="{{ post.url }}" class="blog-card">
+      <div class="blog-thumb">
+        <img src="{% if post.image %}{{ post.image }}{% else %}/img_tatami.jpg{% endif %}" alt="{{ post.title }}">
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-date">{{ post.date | date: "%Y.%m.%d" }}</span>
+          <span class="blog-tag">{{ post.category }}</span>
+        </div>
+        <div class="blog-title">{{ post.title }}</div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="blog-links">
+    <a href="/">← トップページに戻る</a>
+    <a href="https://ameblo.jp/t4501-tangerine-lion/" target="_blank" class="past-link">過去の記事はこちら（アメーバブログ）↗</a>
+  </div>
+
+</div>
+
+<footer>
+  <p class="footer-copy">© 2026 カイロプラクティック ひだまり. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

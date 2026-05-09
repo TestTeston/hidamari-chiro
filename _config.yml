@@ -1,0 +1,12 @@
+title: カイロプラクティック ひだまり
+lang: ja
+url: https://www.hidamari-chiro.jp
+permalink: /blog/:year:month:day.html
+
+exclude:
+  - CLAUDE.md
+  - files.zip
+  - "hidamari_project_log*.md"
+  - .claude
+  - .gitignore
+  - vendor

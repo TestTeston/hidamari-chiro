@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page.title }}｜カイロプラクティック ひだまり</title>
+<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ page.title }}{% endif %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #fffef9;
+    --cream: #faf7f0;
+    --cream2: #f3ede1;
+    --text: #2d2820;
+    --text-mid: #5a5044;
+    --text-light: #9c9082;
+    --accent: #ca9261;
+    --accent-dark: #a8744a;
+    --accent-light: #e8c9a8;
+    --accent-pale: #faf3eb;
+    --border: #e0d8cc;
+    --shadow: rgba(100,70,40,0.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.9;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(255,254,249,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between; height: 68px;
+  }
+  .logo { text-decoration: none; display: flex; align-items: center; gap: 0.75rem; }
+  .logo-icon { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+  .logo-text { display: flex; flex-direction: column; }
+  .logo-ja { font-family: 'Shippori Mincho', serif; font-size: 0.95rem; font-weight: 600; color: var(--text); letter-spacing: 0.08em; line-height: 1.2; white-space: nowrap; }
+  .logo-en { font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+  .header-back {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; color: var(--text-mid); text-decoration: none;
+    padding: 0.45rem 1rem; border: 1px solid var(--border); border-radius: 2rem;
+    transition: all 0.2s;
+  }
+  .header-back:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── ARTICLE ── */
+  .article-wrap {
+    max-width: 780px; margin: 0 auto;
+    padding: 120px 2rem 6rem;
+  }
+
+  .breadcrumb {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; color: var(--text-light);
+    margin-bottom: 2rem; flex-wrap: wrap;
+  }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { color: var(--text-light); }
+
+  .article-meta {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.25rem; flex-wrap: wrap;
+  }
+  .article-date { font-size: 0.75rem; color: var(--text-light); letter-spacing: 0.08em; }
+  .article-category {
+    font-size: 0.68rem; background: var(--accent-pale); color: var(--accent-dark);
+    padding: 0.2rem 0.8rem; border-radius: 2rem; border: 1px solid var(--accent-light);
+  }
+
+  .article-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 600; line-height: 1.55; letter-spacing: 0.06em;
+    color: var(--text); margin-bottom: 2rem;
+    padding-bottom: 1.5rem; border-bottom: 2px solid var(--accent-light);
+  }
+
+  .article-eyecatch {
+    width: 100%; border-radius: 1rem; overflow: hidden;
+    margin-bottom: 2.5rem; box-shadow: 0 4px 20px var(--shadow);
+    aspect-ratio: 16/9;
+  }
+  .article-eyecatch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .article-body { font-size: 0.95rem; color: var(--text-mid); line-height: 2.1; }
+  .article-body p { margin-bottom: 1.6rem; }
+  .article-body h2 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.25rem; font-weight: 600; color: var(--text);
+    margin: 2.5rem 0 1rem;
+    padding-left: 1rem; border-left: 3px solid var(--accent);
+  }
+  .article-body h3 {
+    font-size: 1rem; font-weight: 500; color: var(--text);
+    margin: 2rem 0 0.75rem;
+  }
+  .article-body img {
+    width: 100%; border-radius: 0.75rem; margin: 1.5rem 0;
+    box-shadow: 0 4px 16px var(--shadow);
+  }
+  .article-body .youtube {
+    position: relative; padding-top: 56.25%;
+    margin: 1.5rem 0; border-radius: 0.75rem; overflow: hidden;
+    box-shadow: 0 4px 16px var(--shadow);
+  }
+  .article-body .youtube iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+  }
+  .article-body blockquote {
+    background: var(--accent-pale); border-left: 3px solid var(--accent);
+    padding: 1rem 1.5rem; border-radius: 0 0.75rem 0.75rem 0;
+    margin: 1.5rem 0; font-family: 'Shippori Mincho', serif;
+    font-size: 0.95rem; color: var(--text);
+  }
+
+  .article-nav {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);
+  }
+  .article-nav a {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    padding: 1rem 1.25rem; border: 1px solid var(--border); border-radius: 0.75rem;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    background: var(--white);
+  }
+  .article-nav a:hover { border-color: var(--accent); background: var(--accent-pale); }
+  .article-nav .nav-label { font-size: 0.65rem; color: var(--text-light); letter-spacing: 0.1em; }
+  .article-nav .nav-title { font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; }
+  .article-nav .next { text-align: right; }
+
+  .back-to-list {
+    display: flex; justify-content: center; margin-top: 2.5rem;
+  }
+  .back-to-list a {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.82rem; color: var(--accent); text-decoration: none;
+    padding: 0.75rem 2rem; border: 1px solid var(--accent-light); border-radius: 2rem;
+    background: var(--white); transition: all 0.25s;
+  }
+  .back-to-list a:hover { background: var(--accent-pale); border-color: var(--accent); }
+
+  footer { background: var(--text); color: rgba(255,255,255,0.65); padding: 2.5rem 2rem; text-align: center; }
+  .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.3); }
+
+  @media (max-width: 600px) {
+    .article-wrap { padding: 100px 1.25rem 4rem; }
+    .article-nav { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <img src="/img_logo.png" alt="ひだまりロゴ" class="logo-icon">
+      <div class="logo-text">
+        <span class="logo-ja">カイロプラクティック　ひだまり</span>
+        <span class="logo-en">Chiropractic Hidamari</span>
+      </div>
+    </a>
+    <a href="/blog/" class="header-back">← ブログ一覧</a>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <nav class="breadcrumb">
+    <a href="/">ホーム</a>
+    <span>›</span>
+    <a href="/blog/">ひだまりの日常</a>
+    <span>›</span>
+    <span>{{ page.title }}</span>
+  </nav>
+
+  <div class="article-meta">
+    <span class="article-date">{{ page.date | date: "%Y.%m.%d" }}</span>
+    <span class="article-category">{{ page.category }}</span>
+  </div>
+
+  <h1 class="article-title">{{ page.title }}</h1>
+
+  {% if page.image %}
+  <div class="article-eyecatch">
+    <img src="{{ page.image }}" alt="{{ page.title }}">
+  </div>
+  {% endif %}
+
+  <div class="article-body">
+    {{ content }}
+  </div>
+
+  <nav class="article-nav">
+    {% if page.previous %}
+    <a href="{{ page.previous.url }}" class="prev">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">{{ page.previous.title }}</span>
+    </a>
+    {% else %}
+    <a href="https://ameblo.jp/t4501-tangerine-lion/" target="_blank" class="prev">
+      <span class="nav-label">← 過去の記事</span>
+      <span class="nav-title">アメーバブログはこちら ↗</span>
+    </a>
+    {% endif %}
+    {% if page.next %}
+    <a href="{{ page.next.url }}" class="next">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">{{ page.next.title }}</span>
+    </a>
+    {% else %}
+    <div class="next"></div>
+    {% endif %}
+  </nav>
+
+  <div class="back-to-list">
+    <a href="/blog/">← ブログ一覧に戻る</a>
+  </div>
+
+</div>
+
+<footer>
+  <p class="footer-copy">© 2026 カイロプラクティック ひだまり. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
