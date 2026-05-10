@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -527,25 +529,18 @@
       <h2 class="section-title">ひだまりの日常</h2>
     </div>
     <div class="blog-grid">
-      <!-- 最新記事①（新しい記事を追加したらここを更新） -->
-      <a href="blog/20260510.html" class="blog-card reveal">
-        <div class="blog-thumb"><img src="img_tatami.jpg" alt="ブログ"></div>
-        <div class="blog-body"><div class="blog-meta"><span class="blog-date">2026.05.10</span><span class="blog-tag">お知らせ</span></div><div class="blog-title">ホームページをリニューアルしました</div></div>
+      {% for post in site.posts limit:3 %}
+      <a href="{{ post.url }}" class="blog-card reveal">
+        <div class="blog-thumb"><img src="{% if post.image %}{{ post.image }}{% else %}/blog/images/img_tatami.jpg{% endif %}" alt="{{ post.title }}"></div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-date">{{ post.date | date: "%Y.%m.%d" }}</span>
+            <span class="blog-tag">{{ post.category }}</span>
+          </div>
+          <div class="blog-title">{{ post.title }}</div>
+        </div>
       </a>
-      <!-- 最新記事②（記事が増えたら↓のコメントを外して使う） -->
-      <!--
-      <a href="blog/20260520.html" class="blog-card reveal reveal-d1">
-        <div class="blog-thumb"><img src="img_shoji.jpg" alt="ブログ"></div>
-        <div class="blog-body"><div class="blog-meta"><span class="blog-date">2026.05.20</span><span class="blog-tag">日常</span></div><div class="blog-title">2記事目のタイトル</div></div>
-      </a>
-      -->
-      <!-- 最新記事③ -->
-      <!--
-      <a href="blog/20260530.html" class="blog-card reveal reveal-d2">
-        <div class="blog-thumb"><img src="img_light.jpg" alt="ブログ"></div>
-        <div class="blog-body"><div class="blog-meta"><span class="blog-date">2026.05.30</span><span class="blog-tag">健康コラム</span></div><div class="blog-title">3記事目のタイトル</div></div>
-      </a>
-      -->
+      {% endfor %}
     </div>
     <div style="display:flex; flex-direction:column; align-items:center; gap:0.75rem; margin-top:2.5rem;">
       <a href="blog/index.html" class="blog-more">すべての記事はこちら →</a>
