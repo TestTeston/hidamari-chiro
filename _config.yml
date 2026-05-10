@@ -3,6 +3,13 @@ lang: ja
 url: https://www.hidamari-chiro.jp
 permalink: /blog/:year:month:day.html
 
+defaults:
+  - scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      layout: "post"
+
 exclude:
   - CLAUDE.md
   - files.zip
