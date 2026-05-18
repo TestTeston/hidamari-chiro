@@ -1,5 +1,29 @@
 .claude/
-hidamari_project_log*.md
 CLAUDE.md
 files.zip
 *.pdf
+
+# 作業ノート・打ち合わせ資料
+hidamari_project_log*.md
+hidamari_stores_reserve_project_summary.md
+施術音声まとめプロジェクト_作業記録.md
+Premiere_ネストシーケンス書き出し手順.md
+システム構成図.md
+
+# 施術音声まとめ保管（ブログネタの下書き）
+施術音声まとめ/
+
+# スクリーンショット・素材一時保管
+スマホで予約操作/
+ChatGPT Image *.png
+
+# 画像バックアップ（圧縮前など）
+blog/images/@*.jpg
+blog/images/@*.png
+
+# Jekyllビルド成果物・依存
+_site/
+.jekyll-cache/
+vendor/
+.bundle/
+Gemfile.lock
