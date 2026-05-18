@@ -2,6 +2,8 @@ title: カイロプラクティック ひだまり
 lang: ja
 url: https://www.hidamari-chiro.jp
 permalink: /blog/:year:month:day.html
+timezone: Asia/Tokyo
+future: true
 
 defaults:
   - scope:
