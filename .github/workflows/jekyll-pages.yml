@@ -54,3 +54,21 @@ jobs:
       - name: GitHub Pagesへデプロイ
         id: deployment
         uses: actions/deploy-pages@v4
+
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Pythonセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 新規公開記事を検出してメール通知
+        env:
+          GMAIL_USER: ${{ secrets.NOTIFY_EMAIL }}
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 .github/scripts/notify_publish.py
