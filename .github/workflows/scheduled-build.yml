@@ -2,7 +2,7 @@ name: 毎日自動ビルド（毎日12時公開）
 
 on:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '50 0 * * *'
   workflow_dispatch:
 
 jobs:
