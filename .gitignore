@@ -3,6 +3,14 @@ CLAUDE.md
 files.zip
 *.pdf
 
+# 認証情報・トークン類（絶対に公開してはいけないファイル）
+*token*.txt
+*token*.md
+*secret*
+*credential*
+.env
+.env.*
+
 # 作業ノート・打ち合わせ資料
 hidamari_project_log*.md
 hidamari_stores_reserve_project_summary.md
