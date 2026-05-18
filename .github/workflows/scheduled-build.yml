@@ -1,0 +1,13 @@
+name: 毎日自動ビルド（毎日12時公開）
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Netlifyビルドをトリガー
+        run: curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK }}
