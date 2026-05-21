@@ -34,6 +34,12 @@ def parse_post(path: str) -> dict:
     with open(path, "r", encoding="utf-8") as f:
         content = f.read()
 
+    # ファイル名 (YYYY-MM-DD-title.md) から公開日を取り出してURLを組み立てる
+    # （permalink: /blog/:year:month:day.html に対応）
+    fn = os.path.basename(path)
+    dm = re.match(r"(\d{4})-(\d{2})-(\d{2})", fn)
+    date_compact = "".join(dm.groups()) if dm else TODAY_COMPACT
+
     m = re.match(r"^---\n(.*?)\n---\n(.*)", content, re.DOTALL)
     if not m:
         raise ValueError(f"フロントマターを解析できません: {path}")
@@ -65,7 +71,7 @@ def parse_post(path: str) -> dict:
         "category": get("category"),
         "date": get("date"),
         "excerpt": excerpt,
-        "url": f"https://www.hidamari-chiro.jp/blog/{TODAY_COMPACT}.html",
+        "url": f"https://www.hidamari-chiro.jp/blog/{date_compact}.html",
     }
 
 
