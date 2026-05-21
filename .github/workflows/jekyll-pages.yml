@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      test_notify:
+        description: 'メール通知をテスト送信する（最新記事を使用）'
+        type: boolean
+        default: false
   schedule:
     # 毎日9時50分（JST）に再ビルド → 当日付の予約記事が公開される
     - cron: '50 0 * * *'
@@ -71,4 +76,5 @@ jobs:
         env:
           GMAIL_USER: ${{ secrets.NOTIFY_EMAIL }}
           GMAIL_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          NOTIFY_TEST: ${{ inputs.test_notify }}
         run: python3 .github/scripts/notify_publish.py
