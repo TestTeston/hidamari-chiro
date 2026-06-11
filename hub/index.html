@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ひだまり 管理室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#fffef9; --cream:#faf7f0; --cream2:#f3ede1;
+  --text:#2d2820; --text-mid:#5a5044; --text-light:#9c9082;
+  --accent:#ca9261; --accent-dark:#a8744a; --accent-light:#e8c9a8; --accent-pale:#faf3eb;
+  --border:#e0d8cc; --shadow:rgba(100,70,40,0.10);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Noto Sans JP',sans-serif; background:var(--cream);
+  color:var(--text); padding:24px 16px 48px; max-width:560px; margin:0 auto;
+}
+h1{
+  font-family:'Shippori Mincho',serif; font-size:1.5rem; text-align:center;
+  color:var(--accent-dark); margin-bottom:4px;
+}
+.sub{text-align:center; color:var(--text-light); font-size:.8rem; margin-bottom:28px}
+h2{
+  font-family:'Shippori Mincho',serif; font-size:1rem; color:var(--text-mid);
+  margin:28px 0 12px; padding-left:10px; border-left:4px solid var(--accent);
+}
+.card{
+  display:flex; align-items:center; gap:14px;
+  background:var(--white); border:1px solid var(--border); border-radius:14px;
+  padding:16px 18px; margin-bottom:10px; text-decoration:none; color:var(--text);
+  box-shadow:0 2px 8px var(--shadow); transition:transform .1s;
+}
+.card:active{transform:scale(.98); background:var(--accent-pale)}
+.card .icon{font-size:1.6rem; flex-shrink:0}
+.card .label{font-weight:700; font-size:1rem}
+.card .desc{font-size:.75rem; color:var(--text-light); margin-top:2px}
+.note{
+  margin-top:36px; padding:14px 16px; background:var(--cream2);
+  border-radius:12px; font-size:.75rem; color:var(--text-mid); line-height:1.7;
+}
+footer{text-align:center; margin-top:28px; color:var(--text-light); font-size:.7rem}
+</style>
+</head>
+<body>
+
+<h1>ひだまり 管理室</h1>
+<p class="sub">ホームページ・ブログの管理入口をひとまとめ</p>
+
+<h2>📝 毎日・よく使う</h2>
+<a class="card" href="https://www.hidamari-chiro.jp/admin/">
+  <span class="icon">✍️</span>
+  <span><span class="label">ブログを書く・直す</span><br><span class="desc">CMS管理画面（Sveltia）</span></span>
+</a>
+<a class="card" href="https://claude.ai/code">
+  <span class="icon">🤖</span>
+  <span><span class="label">ラボ君（Claude Code）</span><br><span class="desc">記事作成・HP修正の相談</span></span>
+</a>
+<a class="card" href="https://business.google.com/posts">
+  <span class="icon">📍</span>
+  <span><span class="label">Googleマップに投稿</span><br><span class="desc">公開メールのテキストを貼り付け</span></span>
+</a>
+
+<h2>👀 確認する</h2>
+<a class="card" href="https://www.hidamari-chiro.jp/">
+  <span class="icon">🏠</span>
+  <span><span class="label">ホームページ（本番）</span><br><span class="desc">公開されている表のページ</span></span>
+</a>
+<a class="card" href="https://www.hidamari-chiro.jp/blog/">
+  <span class="icon">📰</span>
+  <span><span class="label">ブログ一覧</span><br><span class="desc">公開済みの記事を確認</span></span>
+</a>
+<a class="card" href="https://github.com/TestTeston/hidamari-chiro/actions">
+  <span class="icon">⚙️</span>
+  <span><span class="label">ビルド状況</span><br><span class="desc">緑✓なら公開成功（GitHub Actions）</span></span>
+</a>
+
+<h2>🔧 たまに使う</h2>
+<a class="card" href="https://github.com/TestTeston/hidamari-chiro">
+  <span class="icon">📦</span>
+  <span><span class="label">GitHubリポジトリ</span><br><span class="desc">サイトの中身・ファイル一式</span></span>
+</a>
+<a class="card" href="https://tinypng.com/">
+  <span class="icon">🗜️</span>
+  <span><span class="label">TinyPNG</span><br><span class="desc">画像をアップ前に圧縮</span></span>
+</a>
+<a class="card" href="https://hidamari-chiro.stores.jp/reserve/eff48079e5de482373d8">
+  <span class="icon">📅</span>
+  <span><span class="label">STORES予約</span><br><span class="desc">お客様から見える予約画面</span></span>
+</a>
+<a class="card" href="https://github.com/TestTeston/hidamari-chiro/settings/pages">
+  <span class="icon">🔐</span>
+  <span><span class="label">GitHub Pages設定</span><br><span class="desc">ドメイン・HTTPSの設定画面</span></span>
+</a>
+
+<div class="note">
+  💡 このページはホーム画面に追加して使ってください。<br>
+  Chrome：メニュー（︙）→「ホーム画面に追加」<br>
+  ※ 検索エンジンには載らない設定にしてあります（リンク先は各自ログインが必要なので、他の人が開いても何もできません）。
+</div>
+
+<footer>カイロプラクティック ひだまり 管理室</footer>
+
+</body>
+</html>
