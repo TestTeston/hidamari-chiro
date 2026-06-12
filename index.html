@@ -159,7 +159,7 @@
   .section-title.active::after { width: 4.5rem; }
 
   /* ── ABOUT ── */
-  #about { background: var(--white); border-top: 1px solid var(--border); }
+  #about { background: rgba(255,254,249,.78); border-top: 1px solid var(--border); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
   .about-images { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; position: relative; }
   .about-img-main { grid-column: span 2; border-radius: 1rem; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 8px 32px var(--shadow); }
@@ -197,7 +197,7 @@
   .feature-desc { font-size: 0.68rem; color: var(--text-light); line-height: 1.7; }
 
   /* ── MENU ── */
-  #menu { background: var(--cream); border-top: 1px solid var(--border); }
+  #menu { background: rgba(250,247,240,.78); border-top: 1px solid var(--border); }
   .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
   .menu-card {
     background: var(--white); border-radius: 1.25rem; padding: 1.75rem;
@@ -219,7 +219,7 @@
   .menu-desc { font-size: 0.8rem; color: var(--text-mid); line-height: 1.9; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
 
   /* ── GALLERY ── */
-  #gallery { background: var(--white); border-top: 1px solid var(--border); }
+  #gallery { background: rgba(255,254,249,.78); border-top: 1px solid var(--border); }
   .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
   .gallery-item { border-radius: 0.75rem; overflow: hidden; position: relative; }
   .gallery-item:first-child { grid-column: span 2; }
@@ -236,7 +236,7 @@
   .gallery-item:hover .gallery-caption { opacity: 1; }
 
   /* ── SYMPTOMS ── */
-  #symptoms { background: var(--cream); border-top: 1px solid var(--border); }
+  #symptoms { background: rgba(250,247,240,.78); border-top: 1px solid var(--border); }
   .symptom-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .symptom-item {
     background: var(--white); border: 1px solid var(--border); border-radius: 2rem;
@@ -246,7 +246,7 @@
   .symptom-item:hover { background: var(--accent-pale); border-color: var(--accent-light); color: var(--accent-dark); transform: translateY(-1px); }
 
   /* ── BLOG ── */
-  #blog { background: var(--white); border-top: 1px solid var(--border); }
+  #blog { background: rgba(255,254,249,.78); border-top: 1px solid var(--border); }
   .blog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
   .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
   .blog-card {
@@ -273,7 +273,7 @@
   .blog-more:hover { background: var(--accent-pale); border-color: var(--accent); }
 
   /* ── ACCESS ── */
-  #access { background: var(--cream); border-top: 1px solid var(--border); }
+  #access { background: rgba(250,247,240,.78); border-top: 1px solid var(--border); }
   .access-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
   .info-table { width: 100%; border-collapse: collapse; }
   .info-table tr { border-bottom: 1px solid var(--border); }
@@ -331,6 +331,14 @@
   .footer-sns a:hover { background: var(--accent); color: #fff; }
 
   /* ── KOMOREBI（木漏れ日演出）── */
+  /* 固定背景：施術マットの写真がスクロールしてもずっと奥に居続ける */
+  .page-bg {
+    position: fixed; inset: 0; z-index: -1;
+    background-image: linear-gradient(rgba(255,254,249,.30), rgba(255,254,249,.30)), url('img_tatami.jpg');
+    background-size: cover;
+    background-position: center 40%;
+  }
+
   /* 全セクションが不透明背景のため、背面でなくコンテンツの上・ヘッダー(200)の下に重ねる。
      pointer-events:none で操作には一切干渉しない */
   #komorebi { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
@@ -339,7 +347,7 @@
   /* 紙の質感（grain）：SVG feTurbulence のノイズをごく薄く全面に */
   body::after {
     content: ''; position: fixed; inset: 0; z-index: 50; pointer-events: none;
-    opacity: .07; mix-blend-mode: multiply;
+    opacity: .12; mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
@@ -363,7 +371,7 @@
     nav ul { display: none; }
     .hamburger { display: flex; }
     .hero-overlay { background: linear-gradient(to bottom, rgba(255,254,249,0.93), rgba(255,254,249,0.75)); }
-    .hero-bg { background-position: 28% 40%; } /* スマホは明るい障子側を見せる構図に */
+    .hero-bg, .page-bg { background-position: 28% 40%; } /* スマホは明るい障子側を見せる構図に */
     .hero-inner { padding: 3rem 1.25rem; }
     .about-grid, .access-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .about-images { grid-template-columns: 1fr 1fr; }
@@ -378,6 +386,7 @@
 </head>
 <body>
 
+<div class="page-bg" aria-hidden="true"></div>
 <canvas id="komorebi" aria-hidden="true"></canvas>
 
 <header id="header">
