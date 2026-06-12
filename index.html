@@ -59,6 +59,14 @@
   nav ul { list-style: none; display: flex; gap: 1.4rem; align-items: center; }
   nav a { font-size: 0.72rem; letter-spacing: 0.06em; color: var(--text-mid); text-decoration: none; transition: color 0.25s; white-space: nowrap; }
   nav a:hover { color: var(--accent); }
+  /* ナビリンク：hoverで下線がすっと走る */
+  nav a:not(.nav-reserve) { position: relative; }
+  nav a:not(.nav-reserve)::after {
+    content: ''; position: absolute; left: 0; bottom: -4px; width: 100%; height: 1px;
+    background: var(--accent); transform: scaleX(0); transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  nav a:not(.nav-reserve):hover::after { transform: scaleX(1); transform-origin: left; }
   .nav-reserve {
     background: var(--accent) !important; color: #fff !important;
     padding: 0.45rem 1.1rem; border-radius: 2rem; font-size: 0.72rem !important;
@@ -283,8 +291,13 @@
   .info-table tr:first-child { border-top: 1px solid var(--border); }
   .info-table th { padding: 1rem 1rem 1rem 0; font-size: 0.76rem; font-weight: 500; color: var(--text-light); text-align: left; white-space: nowrap; width: 7rem; vertical-align: top; }
   .info-table td { padding: 1rem 0; font-size: 0.86rem; color: var(--text-mid); line-height: 1.9; }
-  .info-table a { color: var(--accent); text-decoration: none; }
-  .info-table a:hover { text-decoration: underline; }
+  /* 本文リンク：hoverでマーカーがすっと引かれる */
+  .info-table a {
+    color: var(--accent); text-decoration: none;
+    background: linear-gradient(rgba(232,201,168,.45), rgba(232,201,168,.45)) no-repeat left 75% / 0% 45%;
+    transition: background-size 0.3s ease;
+  }
+  .info-table a:hover { background-size: 100% 45%; }
   .map-area { border-radius: 1.25rem; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 20px var(--shadow); }
   .map-area img { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; }
   .map-link {
@@ -700,7 +713,7 @@
     const ctx = cv.getContext('2d');
     const mobile = innerWidth < 600;
     const CONFIG = {
-      motes:   mobile ? 28 : 55,   // きらめき粒の数
+      motes:   mobile ? 28 : 70,   // きらめき粒の数
       moteR:   [2, 6.5],           // 粒の半径(px)
       moteA:   [.25, .55],         // 粒の濃さ
       patches: mobile ? 2 : 4,     // 大きな光斑の数
@@ -713,8 +726,17 @@
       scroll:  .25,                // スクロール連動の強さ（0で無効）
       light:   '232,201,168',      // 光の色（--accent-light）
       shade:   '100,70,40',        // 影の色（--shadow系）
+      pointerR: 150,               // ポインターを追う光の半径
+      pointerA: .12,               // ポインターを追う光の濃さ
     };
     let W, H, motes = [], leaves = [], shafts = [], raf, lastSY = scrollY, sVel = 0;
+    // ポインター追随（マウス環境のみ。タッチでは動かさない）
+    const fine = matchMedia('(pointer: fine)').matches;
+    let mx = -9999, my = -9999, gx = 0, gy = 0, hasG = false;
+    if (fine){
+      addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+      document.documentElement.addEventListener('mouseleave', () => { mx = -9999; hasG = false; });
+    }
     const rnd = (a, b) => a + Math.random() * (b - a);
 
     // 光芒は1枚のスプライトに事前描画し、毎フレーム使い回す（軽量化）
@@ -788,6 +810,11 @@
       for (const p of motes){
         p.y -= p.vy + pull * (p.big ? .4 : 1);
         p.x += Math.sin(t / 4000 + p.ph) * CONFIG.sway;
+        // ポインターが近づくと粒がふわっと逃げる
+        if (fine && hasG && !p.big){
+          const dx = p.x - gx, dy = p.y - gy, d2 = dx*dx + dy*dy;
+          if (d2 < 16900){ const d = Math.sqrt(d2) || 1, f = (130 - d) / 130 * .6; p.x += dx/d*f; p.y += dy/d*f; }
+        }
         if (p.y < -p.r) { p.y = H + p.r; p.x = rnd(0, W); }
         else if (p.y > H + p.r) { p.y = -p.r; p.x = rnd(0, W); }
         const tw = p.big ? 1 : .6 + .4 * Math.sin(t / 1200 + p.ph);
@@ -796,6 +823,17 @@
         g.addColorStop(1, `rgba(${CONFIG.light},0)`);
         ctx.fillStyle = g;
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.28); ctx.fill();
+      }
+
+      // ポインターを追う陽だまりの光（ふわっと遅れてついてくる）
+      if (fine && mx > -999){
+        if (!hasG){ gx = mx; gy = my; hasG = true; }
+        gx += (mx - gx) * .07; gy += (my - gy) * .07;
+        const g = ctx.createRadialGradient(gx, gy, 0, gx, gy, CONFIG.pointerR);
+        g.addColorStop(0, `rgba(${CONFIG.light},${CONFIG.pointerA})`);
+        g.addColorStop(1, `rgba(${CONFIG.light},0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(gx, gy, CONFIG.pointerR, 0, 6.28); ctx.fill();
       }
       raf = requestAnimationFrame(tick);
     }
@@ -806,6 +844,19 @@
     });
     resize(); init(); raf = requestAnimationFrame(tick);
   })();
+
+  // カード：ポインターの位置に合わせて枠がわずかに傾く（マウス環境のみ）
+  if (matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll('.menu-card, .feature-card, .blog-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const ry = ((e.clientX - r.left) / r.width  - .5) *  6;
+        const rx = ((e.clientY - r.top)  / r.height - .5) * -6;
+        card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-3px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+  }
 </script>
 </body>
 </html>
