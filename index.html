@@ -714,8 +714,8 @@
     const mobile = innerWidth < 600;
     const CONFIG = {
       motes:   mobile ? 28 : 70,   // きらめき粒の数
-      moteR:   [3, 9],             // 粒の半径(px)
-      moteA:   [.35, .7],          // 粒の濃さ
+      moteR:   [4, 11],            // 粒の半径(px)
+      moteA:   [.5, .85],          // 粒の濃さ
       patches: mobile ? 2 : 4,     // 大きな光斑の数
       shafts:  mobile ? 2 : 3,     // 光芒（差し込む光の帯）の本数
       shaftA:  .14,                // 光芒のピーク濃度
@@ -726,8 +726,10 @@
       scroll:  .25,                // スクロール連動の強さ（0で無効）
       light:   '232,201,168',      // 光の色（--accent-light）
       shade:   '100,70,40',        // 影の色（--shadow系）
-      pointerR: 170,               // ポインターを追う光の半径
-      pointerA: .30,               // ポインターを追う光の濃さ
+      pointerR: 190,               // ポインターを追う光の半径
+      pointerA: .55,               // ポインターを追う光の濃さ
+      core: '255,242,210',         // 粒・ポインター光の中心色（明るい暖白）
+      deep: '202,146,97',          // 粒・ポインター光の縁色（--accent）
     };
     let W, H, motes = [], leaves = [], shafts = [], raf, lastSY = scrollY, sVel = 0;
     // ポインター追随（マウス環境のみ。タッチでは動かさない）
@@ -759,7 +761,7 @@
     function makeMote(big){ return {
       x: rnd(0, W), y: rnd(0, H),
       r: big ? rnd(40, 90) : rnd(CONFIG.moteR[0], CONFIG.moteR[1]),
-      a: big ? rnd(.04, .08) : rnd(CONFIG.moteA[0], CONFIG.moteA[1]),
+      a: big ? rnd(.08, .14) : rnd(CONFIG.moteA[0], CONFIG.moteA[1]),
       vy: rnd(.3, 1) * CONFIG.speed, ph: rnd(0, 6.28), big
     };}
     function init(){
@@ -819,8 +821,15 @@
         else if (p.y > H + p.r) { p.y = -p.r; p.x = rnd(0, W); }
         const tw = p.big ? 1 : .6 + .4 * Math.sin(t / 1200 + p.ph);
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-        g.addColorStop(0, `rgba(${CONFIG.light},${p.a * tw})`);
-        g.addColorStop(1, `rgba(${CONFIG.light},0)`);
+        if (p.big){
+          g.addColorStop(0, `rgba(${CONFIG.light},${p.a * tw})`);
+          g.addColorStop(1, `rgba(${CONFIG.light},0)`);
+        } else {
+          // 中心=明るい暖白・縁=テラコッタの二層で、白地でも写真の上でも光って見える
+          g.addColorStop(0, `rgba(${CONFIG.core},${p.a * tw})`);
+          g.addColorStop(.55, `rgba(${CONFIG.deep},${p.a * tw * .55})`);
+          g.addColorStop(1, `rgba(${CONFIG.deep},0)`);
+        }
         ctx.fillStyle = g;
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.28); ctx.fill();
       }
@@ -830,8 +839,9 @@
         if (!hasG){ gx = mx; gy = my; hasG = true; }
         gx += (mx - gx) * .07; gy += (my - gy) * .07;
         const g = ctx.createRadialGradient(gx, gy, 0, gx, gy, CONFIG.pointerR);
-        g.addColorStop(0, `rgba(${CONFIG.light},${CONFIG.pointerA})`);
-        g.addColorStop(1, `rgba(${CONFIG.light},0)`);
+        g.addColorStop(0, `rgba(${CONFIG.core},${CONFIG.pointerA})`);
+        g.addColorStop(.4, `rgba(${CONFIG.deep},${CONFIG.pointerA * .45})`);
+        g.addColorStop(1, `rgba(${CONFIG.deep},0)`);
         ctx.fillStyle = g;
         ctx.beginPath(); ctx.arc(gx, gy, CONFIG.pointerR, 0, 6.28); ctx.fill();
       }
@@ -850,9 +860,9 @@
     document.querySelectorAll('.menu-card, .feature-card, .blog-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
-        const ry = ((e.clientX - r.left) / r.width  - .5) *  10;
-        const rx = ((e.clientY - r.top)  / r.height - .5) * -10;
-        card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-3px)`;
+        const ry = ((e.clientX - r.left) / r.width  - .5) *  16;
+        const rx = ((e.clientY - r.top)  / r.height - .5) * -16;
+        card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
       });
       card.addEventListener('mouseleave', () => { card.style.transform = ''; });
     });
