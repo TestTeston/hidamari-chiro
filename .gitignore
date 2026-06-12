@@ -12,6 +12,7 @@ files.zip
 .env.*
 
 # 作業ノート・打ち合わせ資料
+ひだまりHP/
 hidamari_project_log*.md
 hidamari_stores_reserve_project_summary.md
 施術音声まとめプロジェクト_作業記録.md

@@ -330,6 +330,22 @@
   }
   .footer-sns a:hover { background: var(--accent); color: #fff; }
 
+  /* ── KOMOREBI（木漏れ日演出）── */
+  /* 全セクションが不透明背景のため、背面でなくコンテンツの上・ヘッダー(200)の下に重ねる。
+     pointer-events:none で操作には一切干渉しない */
+  #komorebi { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+  @media (prefers-reduced-motion: reduce) { #komorebi { display: none; } }
+
+  /* 紙の質感（grain）：SVG feTurbulence のノイズをごく薄く全面に */
+  body::after {
+    content: ''; position: fixed; inset: 0; z-index: 50; pointer-events: none;
+    opacity: .04; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* テキスト選択を蛍光マーカー風に */
+  ::selection { background: rgba(232,201,168,.55); }
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -360,6 +376,8 @@
 </style>
 </head>
 <body>
+
+<canvas id="komorebi" aria-hidden="true"></canvas>
 
 <header id="header">
   <div class="header-inner">
@@ -659,6 +677,53 @@
       if (e.isIntersecting) el.classList.add('active');
     }, { threshold: 0.5 }).observe(el);
   });
+
+  // 木漏れ日：陽だまりの中を漂う光の粒（きらめき粒＋大きな光斑の2層）
+  (() => {
+    const cv = document.getElementById('komorebi');
+    if (!cv || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx = cv.getContext('2d');
+    const CONFIG = {
+      motes:   innerWidth < 600 ? 22 : 42,  // きらめき粒の数（スマホは絞る）
+      patches: innerWidth < 600 ? 2 : 4,    // 大きな光斑の数
+      speed: 0.12,                          // 漂う速さ（上方向ベース）
+      sway: 0.35,                           // 横揺れの振幅
+      color: '232,201,168',                 // RGB（--accent-light）
+    };
+    let W, H, parts = [], raf;
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    function resize(){ W = cv.width = innerWidth; H = cv.height = innerHeight; }
+    function make(big){ return {
+      x: rnd(0, W), y: rnd(0, H), r: big ? rnd(30, 80) : rnd(1.5, 4),
+      a: big ? rnd(.03, .06) : rnd(.15, .4),
+      vy: rnd(.3, 1) * CONFIG.speed, ph: rnd(0, 6.28), big
+    };}
+    function init(){ parts = [
+      ...Array.from({length: CONFIG.patches}, () => make(true)),
+      ...Array.from({length: CONFIG.motes},   () => make(false))
+    ];}
+    function tick(t){
+      ctx.clearRect(0, 0, W, H);
+      for (const p of parts){
+        p.y -= p.vy;                                    // ゆっくり上昇
+        p.x += Math.sin(t/4000 + p.ph) * CONFIG.sway;   // 横にゆらゆら
+        if (p.y < -p.r) { p.y = H + p.r; p.x = rnd(0, W); }
+        const tw = p.big ? 1 : .6 + .4 * Math.sin(t/1200 + p.ph);  // きらめき
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+        g.addColorStop(0, `rgba(${CONFIG.color},${p.a * tw})`);
+        g.addColorStop(1, `rgba(${CONFIG.color},0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.28); ctx.fill();
+      }
+      raf = requestAnimationFrame(tick);
+    }
+    addEventListener('resize', () => { resize(); init(); });
+    document.addEventListener('visibilitychange', () => {  // タブ非表示で停止＝省電力
+      if (document.hidden) cancelAnimationFrame(raf);
+      else raf = requestAnimationFrame(tick);
+    });
+    resize(); init(); raf = requestAnimationFrame(tick);
+  })();
 </script>
 </body>
 </html>
