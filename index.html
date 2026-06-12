@@ -714,8 +714,8 @@
     const mobile = innerWidth < 600;
     const CONFIG = {
       motes:   mobile ? 28 : 70,   // きらめき粒の数
-      moteR:   [2, 6.5],           // 粒の半径(px)
-      moteA:   [.25, .55],         // 粒の濃さ
+      moteR:   [3, 9],             // 粒の半径(px)
+      moteA:   [.35, .7],          // 粒の濃さ
       patches: mobile ? 2 : 4,     // 大きな光斑の数
       shafts:  mobile ? 2 : 3,     // 光芒（差し込む光の帯）の本数
       shaftA:  .14,                // 光芒のピーク濃度
@@ -726,8 +726,8 @@
       scroll:  .25,                // スクロール連動の強さ（0で無効）
       light:   '232,201,168',      // 光の色（--accent-light）
       shade:   '100,70,40',        // 影の色（--shadow系）
-      pointerR: 150,               // ポインターを追う光の半径
-      pointerA: .12,               // ポインターを追う光の濃さ
+      pointerR: 170,               // ポインターを追う光の半径
+      pointerA: .30,               // ポインターを追う光の濃さ
     };
     let W, H, motes = [], leaves = [], shafts = [], raf, lastSY = scrollY, sVel = 0;
     // ポインター追随（マウス環境のみ。タッチでは動かさない）
@@ -813,7 +813,7 @@
         // ポインターが近づくと粒がふわっと逃げる
         if (fine && hasG && !p.big){
           const dx = p.x - gx, dy = p.y - gy, d2 = dx*dx + dy*dy;
-          if (d2 < 16900){ const d = Math.sqrt(d2) || 1, f = (130 - d) / 130 * .6; p.x += dx/d*f; p.y += dy/d*f; }
+          if (d2 < 28900){ const d = Math.sqrt(d2) || 1, f = (170 - d) / 170 * 1.4; p.x += dx/d*f; p.y += dy/d*f; }
         }
         if (p.y < -p.r) { p.y = H + p.r; p.x = rnd(0, W); }
         else if (p.y > H + p.r) { p.y = -p.r; p.x = rnd(0, W); }
@@ -850,8 +850,8 @@
     document.querySelectorAll('.menu-card, .feature-card, .blog-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
-        const ry = ((e.clientX - r.left) / r.width  - .5) *  6;
-        const rx = ((e.clientY - r.top)  / r.height - .5) * -6;
+        const ry = ((e.clientX - r.left) / r.width  - .5) *  10;
+        const rx = ((e.clientY - r.top)  / r.height - .5) * -10;
         card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-3px)`;
       });
       card.addEventListener('mouseleave', () => { card.style.transform = ''; });
