@@ -339,7 +339,7 @@
   /* 紙の質感（grain）：SVG feTurbulence のノイズをごく薄く全面に */
   body::after {
     content: ''; position: fixed; inset: 0; z-index: 50; pointer-events: none;
-    opacity: .04; mix-blend-mode: multiply;
+    opacity: .07; mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
@@ -363,6 +363,7 @@
     nav ul { display: none; }
     .hamburger { display: flex; }
     .hero-overlay { background: linear-gradient(to bottom, rgba(255,254,249,0.93), rgba(255,254,249,0.75)); }
+    .hero-bg { background-position: 28% 40%; } /* スマホは明るい障子側を見せる構図に */
     .hero-inner { padding: 3rem 1.25rem; }
     .about-grid, .access-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .about-images { grid-template-columns: 1fr 1fr; }
@@ -678,40 +679,107 @@
     }, { threshold: 0.5 }).observe(el);
   });
 
-  // 木漏れ日：陽だまりの中を漂う光の粒（きらめき粒＋大きな光斑の2層）
+  // 木漏れ日：光芒＋葉影＋光の粒（きらめき粒・光斑）＋スクロール連動の4層
   (() => {
     const cv = document.getElementById('komorebi');
     if (!cv || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const ctx = cv.getContext('2d');
+    const mobile = innerWidth < 600;
     const CONFIG = {
-      motes:   innerWidth < 600 ? 22 : 42,  // きらめき粒の数（スマホは絞る）
-      patches: innerWidth < 600 ? 2 : 4,    // 大きな光斑の数
-      speed: 0.12,                          // 漂う速さ（上方向ベース）
-      sway: 0.35,                           // 横揺れの振幅
-      color: '232,201,168',                 // RGB（--accent-light）
+      motes:   mobile ? 28 : 55,   // きらめき粒の数
+      moteR:   [2, 6.5],           // 粒の半径(px)
+      moteA:   [.25, .55],         // 粒の濃さ
+      patches: mobile ? 2 : 4,     // 大きな光斑の数
+      shafts:  mobile ? 2 : 3,     // 光芒（差し込む光の帯）の本数
+      shaftA:  .14,                // 光芒のピーク濃度
+      leaves:  mobile ? 3 : 5,     // 葉影の数
+      leafA:   .09,                // 葉影の濃さ
+      speed:   .2,                 // 粒が漂う速さ
+      sway:    .5,                 // 横揺れの振幅
+      scroll:  .25,                // スクロール連動の強さ（0で無効）
+      light:   '232,201,168',      // 光の色（--accent-light）
+      shade:   '100,70,40',        // 影の色（--shadow系）
     };
-    let W, H, parts = [], raf;
+    let W, H, motes = [], leaves = [], shafts = [], raf, lastSY = scrollY, sVel = 0;
     const rnd = (a, b) => a + Math.random() * (b - a);
+
+    // 光芒は1枚のスプライトに事前描画し、毎フレーム使い回す（軽量化）
+    const beam = (() => {
+      const s = document.createElement('canvas'); s.width = 300; s.height = 1200;
+      const c = s.getContext('2d');
+      const gx = c.createLinearGradient(0, 0, 300, 0);
+      gx.addColorStop(0, `rgba(${CONFIG.light},0)`);
+      gx.addColorStop(.5, `rgba(${CONFIG.light},1)`);
+      gx.addColorStop(1, `rgba(${CONFIG.light},0)`);
+      c.fillStyle = gx; c.fillRect(0, 0, 300, 1200);
+      const gy = c.createLinearGradient(0, 0, 0, 1200);
+      gy.addColorStop(0, 'rgba(0,0,0,1)'); gy.addColorStop(.85, 'rgba(0,0,0,0)');
+      c.globalCompositeOperation = 'destination-in';
+      c.fillStyle = gy; c.fillRect(0, 0, 300, 1200);
+      return s;
+    })();
+
     function resize(){ W = cv.width = innerWidth; H = cv.height = innerHeight; }
-    function make(big){ return {
-      x: rnd(0, W), y: rnd(0, H), r: big ? rnd(30, 80) : rnd(1.5, 4),
-      a: big ? rnd(.03, .06) : rnd(.15, .4),
+    function makeMote(big){ return {
+      x: rnd(0, W), y: rnd(0, H),
+      r: big ? rnd(40, 90) : rnd(CONFIG.moteR[0], CONFIG.moteR[1]),
+      a: big ? rnd(.04, .08) : rnd(CONFIG.moteA[0], CONFIG.moteA[1]),
       vy: rnd(.3, 1) * CONFIG.speed, ph: rnd(0, 6.28), big
     };}
-    function init(){ parts = [
-      ...Array.from({length: CONFIG.patches}, () => make(true)),
-      ...Array.from({length: CONFIG.motes},   () => make(false))
-    ];}
+    function init(){
+      motes = [
+        ...Array.from({length: CONFIG.patches}, () => makeMote(true)),
+        ...Array.from({length: CONFIG.motes},   () => makeMote(false))
+      ];
+      leaves = Array.from({length: CONFIG.leaves}, () => ({
+        x: rnd(0, W), y: rnd(0, H * .8), r: rnd(60, 140),
+        a: rnd(.5, 1) * CONFIG.leafA, ph: rnd(0, 6.28)
+      }));
+      shafts = Array.from({length: CONFIG.shafts}, (_, i) => ({
+        x: (i + rnd(.3, .7)) / CONFIG.shafts,   // 画面を等分して配置
+        ang: .26 + rnd(-.06, .06), w: rnd(140, 320), ph: rnd(0, 6.28)
+      }));
+    }
     function tick(t){
       ctx.clearRect(0, 0, W, H);
-      for (const p of parts){
-        p.y -= p.vy;                                    // ゆっくり上昇
-        p.x += Math.sin(t/4000 + p.ph) * CONFIG.sway;   // 横にゆらゆら
+      // スクロール速度（なめらかに追従させてふわっと流す）
+      sVel += ((scrollY - lastSY) - sVel) * .12; lastSY = scrollY;
+      const pull = sVel * CONFIG.scroll;
+
+      // 光芒：呼吸するように明滅し、わずかに角度が揺れる
+      for (const s of shafts){
+        ctx.save();
+        ctx.translate(s.x * W, -40);
+        ctx.rotate(s.ang + Math.sin(t / 9000 + s.ph) * .025);
+        ctx.globalAlpha = CONFIG.shaftA * (.55 + .45 * Math.sin(t / 5000 + s.ph));
+        ctx.drawImage(beam, -s.w / 2, 0, s.w, H * 1.4);
+        ctx.restore();
+      }
+      ctx.globalAlpha = 1;
+
+      // 葉影：横にふわふわ揺れながら、わずかに伸び縮み
+      for (const l of leaves){
+        const lx = l.x + Math.sin(t / 3200 + l.ph) * 22;
+        const lr = l.r * (1 + .08 * Math.sin(t / 2400 + l.ph * 2));
+        l.y -= pull * .5;
+        if (l.y < -l.r) l.y = H + l.r; else if (l.y > H + l.r) l.y = -l.r;
+        const g = ctx.createRadialGradient(lx, l.y, 0, lx, l.y, lr);
+        g.addColorStop(0, `rgba(${CONFIG.shade},${l.a})`);
+        g.addColorStop(1, `rgba(${CONFIG.shade},0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(lx, l.y, lr, 0, 6.28); ctx.fill();
+      }
+
+      // 光の粒：上昇＋横揺れ＋きらめき＋スクロールでふわっと流れる
+      for (const p of motes){
+        p.y -= p.vy + pull * (p.big ? .4 : 1);
+        p.x += Math.sin(t / 4000 + p.ph) * CONFIG.sway;
         if (p.y < -p.r) { p.y = H + p.r; p.x = rnd(0, W); }
-        const tw = p.big ? 1 : .6 + .4 * Math.sin(t/1200 + p.ph);  // きらめき
+        else if (p.y > H + p.r) { p.y = -p.r; p.x = rnd(0, W); }
+        const tw = p.big ? 1 : .6 + .4 * Math.sin(t / 1200 + p.ph);
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-        g.addColorStop(0, `rgba(${CONFIG.color},${p.a * tw})`);
-        g.addColorStop(1, `rgba(${CONFIG.color},0)`);
+        g.addColorStop(0, `rgba(${CONFIG.light},${p.a * tw})`);
+        g.addColorStop(1, `rgba(${CONFIG.light},0)`);
         ctx.fillStyle = g;
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.28); ctx.fill();
       }
