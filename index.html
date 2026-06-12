@@ -728,7 +728,7 @@
       shade:   '100,70,40',        // 影の色（--shadow系）
       pointerR: 190,               // ポインターを追う光の半径
       pointerA: .55,               // ポインターを追う光の濃さ
-      core: '255,242,210',         // 粒・ポインター光の中心色（明るい暖白）
+      core: '255,250,242',         // 粒・ポインター光の中心色（ほぼ白。暖色寄りに戻すなら 255,242,210）
       deep: '202,146,97',          // 粒・ポインター光の縁色（--accent）
     };
     let W, H, motes = [], leaves = [], shafts = [], raf, lastSY = scrollY, sVel = 0;
@@ -815,7 +815,7 @@
         // ポインターが近づくと粒がふわっと逃げる
         if (fine && hasG && !p.big){
           const dx = p.x - gx, dy = p.y - gy, d2 = dx*dx + dy*dy;
-          if (d2 < 28900){ const d = Math.sqrt(d2) || 1, f = (170 - d) / 170 * 1.4; p.x += dx/d*f; p.y += dy/d*f; }
+          if (d2 < 28900){ const d = Math.sqrt(d2) || 1, f = (170 - d) / 170 * 3; p.x += dx/d*f; p.y += dy/d*f; }
         }
         if (p.y < -p.r) { p.y = H + p.r; p.x = rnd(0, W); }
         else if (p.y > H + p.r) { p.y = -p.r; p.x = rnd(0, W); }
@@ -858,13 +858,17 @@
   // カード：ポインターの位置に合わせて枠がわずかに傾く（マウス環境のみ）
   if (matchMedia('(pointer: fine)').matches) {
     document.querySelectorAll('.menu-card, .feature-card, .blog-card').forEach(card => {
+      // hover中は追従を高速化（0.06s）、離れたら元のなめらか設定（0.25s）に戻す
+      card.addEventListener('mouseenter', () => {
+        card.style.transition = 'transform .06s ease-out, box-shadow .25s ease, border-color .25s ease';
+      });
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
         const ry = ((e.clientX - r.left) / r.width  - .5) *  16;
         const rx = ((e.clientY - r.top)  / r.height - .5) * -16;
         card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
       });
-      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+      card.addEventListener('mouseleave', () => { card.style.transition = ''; card.style.transform = ''; });
     });
   }
 </script>
