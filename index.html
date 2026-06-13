@@ -379,15 +379,15 @@
   /* テキスト選択を蛍光マーカー風に */
   ::selection { background: rgba(232,201,168,.55); }
 
-  /* 予約ボタンの波紋：押した瞬間に水面の輪がふわっと広がる（PC・スマホ両対応） */
+  /* 予約ボタンの波紋：押した位置から水面の輪（リング）が外へ広がる（PC・スマホ両対応） */
   .btn-primary, .btn-white, .nav-reserve, .menu-card a[target="_blank"] { position: relative; overflow: hidden; }
   .ripple {
     position: absolute; border-radius: 50%; pointer-events: none; transform: scale(0);
-    background: radial-gradient(circle, rgba(255,255,255,.55) 0%, rgba(255,255,255,.28) 45%, rgba(255,255,255,0) 70%);
-    animation: ripple .65s ease-out forwards;
+    border: 3px solid rgba(255,255,255,.8);
+    animation: ripple .7s ease-out forwards;
   }
-  .btn-white .ripple { background: radial-gradient(circle, rgba(202,146,97,.45) 0%, rgba(202,146,97,.22) 45%, rgba(202,146,97,0) 70%); }
-  @keyframes ripple { to { transform: scale(1); opacity: 0; } }
+  .btn-white .ripple { border-color: rgba(202,146,97,.75); }
+  @keyframes ripple { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(1); opacity: 0; } }
 
   /* ── ANIMATIONS ── */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
@@ -897,13 +897,17 @@
       const size = Math.max(rect.width, rect.height) * 2;
       const cx = e.clientX || rect.left + rect.width / 2;
       const cy = e.clientY || rect.top + rect.height / 2;
-      const span = document.createElement('span');
-      span.className = 'ripple';
-      span.style.width = span.style.height = size + 'px';
-      span.style.left = (cx - rect.left - size / 2) + 'px';
-      span.style.top  = (cy - rect.top  - size / 2) + 'px';
-      btn.appendChild(span);
-      span.addEventListener('animationend', () => span.remove());
+      // 二重の輪を時間差で出して水滴らしく
+      [0, 0.13].forEach(delay => {
+        const span = document.createElement('span');
+        span.className = 'ripple';
+        span.style.width = span.style.height = size + 'px';
+        span.style.left = (cx - rect.left - size / 2) + 'px';
+        span.style.top  = (cy - rect.top  - size / 2) + 'px';
+        span.style.animationDelay = delay + 's';
+        btn.appendChild(span);
+        span.addEventListener('animationend', () => span.remove());
+      });
     });
   });
 </script>
