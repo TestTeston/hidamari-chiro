@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/komorebi.css">
 <style>
 :root{
   --white:#fffef9; --cream:#faf7f0; --cream2:#f3ede1;
@@ -20,6 +21,8 @@ body{
   font-family:'Noto Sans JP',sans-serif; background:var(--cream);
   color:var(--text); padding:24px 16px 48px; max-width:560px; margin:0 auto;
 }
+/* 見出しが写真の上でも読めるよう、背景写真にクリームのベールを重ねる */
+.page-bg{ background-image:linear-gradient(rgba(250,247,240,.60),rgba(250,247,240,.60)),url('/img_tatami.jpg'); }
 h1{
   font-family:'Shippori Mincho',serif; font-size:1.5rem; text-align:center;
   color:var(--accent-dark); margin-bottom:4px;
@@ -47,6 +50,9 @@ footer{text-align:center; margin-top:28px; color:var(--text-light); font-size:.7
 </style>
 </head>
 <body>
+
+<div class="page-bg" aria-hidden="true"></div>
+<canvas id="komorebi" aria-hidden="true"></canvas>
 
 <h1>ひだまり 管理室</h1>
 <p class="sub">ホームページ・ブログの管理入口をひとまとめ</p>
@@ -105,5 +111,6 @@ footer{text-align:center; margin-top:28px; color:var(--text-light); font-size:.7
 
 <footer>カイロプラクティック ひだまり 管理室</footer>
 
+<script src="/komorebi.js"></script>
 </body>
 </html>

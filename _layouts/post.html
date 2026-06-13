@@ -7,6 +7,7 @@
 <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ page.title }}{% endif %}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/komorebi.css">
 <style>
   :root {
     --white: #fffef9;
@@ -58,9 +59,12 @@
   .header-back:hover { border-color: var(--accent); color: var(--accent); }
 
   /* ── ARTICLE ── */
+  /* 文章は読みやすさ優先で、ほぼ不透明の紙パネルの上に乗せる（背景写真は左右の余白に透ける） */
   .article-wrap {
     max-width: 780px; margin: 0 auto;
     padding: 120px 2rem 6rem;
+    background: rgba(255,254,249,0.90);
+    box-shadow: 0 4px 30px var(--shadow);
   }
 
   .breadcrumb {
@@ -163,7 +167,10 @@
   }
 </style>
 </head>
-<body>
+<body class="komorebi-soft">
+
+<div class="page-bg" aria-hidden="true"></div>
+<canvas id="komorebi" aria-hidden="true" data-density="low"></canvas>
 
 <header>
   <div class="header-inner">
@@ -237,5 +244,6 @@
   <p class="footer-copy">© 2026 カイロプラクティック ひだまり. All Rights Reserved.</p>
 </footer>
 
+<script src="/komorebi.js"></script>
 </body>
 </html>

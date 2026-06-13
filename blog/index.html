@@ -9,6 +9,7 @@
 <meta name="description" content="カイロプラクティック ひだまりのブログ。院の日常や健康コラムをお届けします。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/komorebi.css">
 <style>
   :root {
     --white: #fffef9;
@@ -60,7 +61,7 @@
 
   .page-header {
     padding: 120px 2rem 4rem;
-    background: var(--cream);
+    background: rgba(250,247,240,0.80);
     border-bottom: 1px solid var(--border);
     text-align: center;
   }
@@ -128,6 +129,9 @@
 </head>
 <body>
 
+<div class="page-bg" aria-hidden="true"></div>
+<canvas id="komorebi" aria-hidden="true"></canvas>
+
 <header>
   <div class="header-inner">
     <a href="/" class="logo">
@@ -177,5 +181,6 @@
   <p class="footer-copy">© 2026 カイロプラクティック ひだまり. All Rights Reserved.</p>
 </footer>
 
+<script src="/komorebi.js"></script>
 </body>
 </html>
