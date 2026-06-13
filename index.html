@@ -383,10 +383,10 @@
   .btn-primary, .btn-white, .nav-reserve, .menu-card a[target="_blank"] { position: relative; overflow: hidden; }
   .ripple {
     position: absolute; border-radius: 50%; pointer-events: none; transform: scale(0);
-    border: 3px solid rgba(255,255,255,.8);
-    animation: ripple .7s ease-out forwards;
+    border: 3px solid rgba(255,255,255,.9);
+    animation: ripple .8s ease-out forwards;
   }
-  .btn-white .ripple { border-color: rgba(202,146,97,.75); }
+  .btn-white .ripple { border-color: rgba(202,146,97,.8); }
   @keyframes ripple { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(1); opacity: 0; } }
 
   /* ── ANIMATIONS ── */
@@ -890,9 +890,10 @@
     });
   }
 
-  // 予約ボタンの波紋：クリック/タップ位置から水面の輪が広がる
+  // 予約ボタンの波紋：押し込んだ/触れた瞬間（pointerdown）に輪が広がる
+  // ※clickだと新規タブ遷移で見る前に画面が変わるため、押下時点で発火させる
   document.querySelectorAll('.btn-primary, .btn-white, .nav-reserve, .menu-card a[target="_blank"]').forEach(btn => {
-    btn.addEventListener('click', e => {
+    btn.addEventListener('pointerdown', e => {
       const rect = btn.getBoundingClientRect();
       const size = Math.max(rect.width, rect.height) * 2;
       const cx = e.clientX || rect.left + rect.width / 2;
