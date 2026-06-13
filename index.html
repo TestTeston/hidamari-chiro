@@ -113,15 +113,23 @@
     font-size: clamp(2.4rem, 5.5vw, 3.8rem);
     font-weight: 400; line-height: 1.55; letter-spacing: 0.06em;
     color: var(--text); margin-bottom: 1.5rem;
-    animation: fadeUp 0.8s 0.12s ease both;
   }
   .hero-title .accent { color: var(--accent); }
+  /* ヒーロー見出し：一行ずつ、墨がにじんで定まるように静かに立ち上がる */
+  .hero-title .hl { display: block; animation: heroLine 1.1s ease both; }
+  .hero-title .hl1 { animation-delay: 0.25s; }
+  .hero-title .hl2 { animation-delay: 0.6s; }
+  @keyframes heroLine {
+    from { opacity: 0; transform: translateY(26px); filter: blur(8px); }
+    to   { opacity: 1; transform: none;            filter: blur(0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-title .hl { animation: none; } }
   .hero-copy {
     font-size: 0.92rem; color: var(--text-mid); line-height: 2.1;
     margin-bottom: 2.5rem; max-width: 28rem;
-    animation: fadeUp 0.8s 0.22s ease both;
+    animation: fadeUp 0.8s 1.0s ease both;
   }
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.8s 0.32s ease both; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.8s 1.2s ease both; }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 0.5rem;
     background: var(--accent); color: #fff; text-decoration: none;
@@ -371,6 +379,16 @@
   /* テキスト選択を蛍光マーカー風に */
   ::selection { background: rgba(232,201,168,.55); }
 
+  /* 予約ボタンの波紋：押した瞬間に水面の輪がふわっと広がる（PC・スマホ両対応） */
+  .btn-primary, .btn-white, .nav-reserve, .menu-card a[target="_blank"] { position: relative; overflow: hidden; }
+  .ripple {
+    position: absolute; border-radius: 50%; pointer-events: none; transform: scale(0);
+    background: radial-gradient(circle, rgba(255,255,255,.55) 0%, rgba(255,255,255,.28) 45%, rgba(255,255,255,0) 70%);
+    animation: ripple .65s ease-out forwards;
+  }
+  .btn-white .ripple { background: radial-gradient(circle, rgba(202,146,97,.45) 0%, rgba(202,146,97,.22) 45%, rgba(202,146,97,0) 70%); }
+  @keyframes ripple { to { transform: scale(1); opacity: 0; } }
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -446,7 +464,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-inner">
     <span class="hero-tag">☀️ 愛知県小牧市 完全予約制</span>
-    <h1 class="hero-title">縁側と畳の、<br><span class="accent">くつろぎの施術院。</span></h1>
+    <h1 class="hero-title"><span class="hl hl1">縁側と畳の、</span><span class="hl hl2 accent">くつろぎの施術院。</span></h1>
     <p class="hero-copy">身体の痛みや辛さを話してください。<br>「若々しく！元気に！楽しく！」を理念に、<br>カイロプラクティックを通じて<br>あなたの健康をサポートします。</p>
     <div class="hero-btns">
       <a href="https://hidamari-chiro.stores.jp/reserve/eff48079e5de482373d8/4219212#pageContent" target="_blank" class="btn-primary">📅 今すぐ予約する</a>
@@ -871,6 +889,23 @@
       card.addEventListener('mouseleave', () => { card.style.transition = ''; card.style.transform = ''; });
     });
   }
+
+  // 予約ボタンの波紋：クリック/タップ位置から水面の輪が広がる
+  document.querySelectorAll('.btn-primary, .btn-white, .nav-reserve, .menu-card a[target="_blank"]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height) * 2;
+      const cx = e.clientX || rect.left + rect.width / 2;
+      const cy = e.clientY || rect.top + rect.height / 2;
+      const span = document.createElement('span');
+      span.className = 'ripple';
+      span.style.width = span.style.height = size + 'px';
+      span.style.left = (cx - rect.left - size / 2) + 'px';
+      span.style.top  = (cy - rect.top  - size / 2) + 'px';
+      btn.appendChild(span);
+      span.addEventListener('animationend', () => span.remove());
+    });
+  });
 </script>
 </body>
 </html>
