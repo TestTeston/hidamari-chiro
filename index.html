@@ -379,8 +379,9 @@
   /* テキスト選択を蛍光マーカー風に */
   ::selection { background: rgba(232,201,168,.55); }
 
-  /* 予約ボタンの波紋：押した位置から水面の輪（リング）が外へ広がる（PC・スマホ両対応） */
-  .btn-primary, .btn-white, .nav-reserve, .menu-card a[target="_blank"] { position: relative; overflow: hidden; }
+  /* 予約ボタンの波紋：カーソルを重ねると水面の輪（リング）がボタンの外まで広がる */
+  /* ※overflow:hidden にしないのは、輪をボタンの外の明るい背景まで広げて見えやすくするため */
+  .btn-primary, .btn-white, .nav-reserve, .menu-card a[target="_blank"] { position: relative; }
   .ripple {
     position: absolute; border-radius: 50%; pointer-events: none; transform: scale(0);
     border: 3px solid rgba(168,116,74,.85);
