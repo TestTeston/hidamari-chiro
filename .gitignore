@@ -30,6 +30,12 @@ ChatGPT Image *.png
 blog/images/@*.jpg
 blog/images/@*.png
 
+# Whisper文字起こし用スクリプト・一時音声（ローカル作業用）
+_whisper*.py
+_clip*
+_tmp_audio.wav
+*.wav
+
 # Jekyllビルド成果物・依存
 _site/
 .jekyll-cache/
