@@ -2,8 +2,8 @@
 """新しいブログ記事が公開された時に院長にメール通知する。
 
 Jekyllビルド成功後にGitHub Actionsから呼ばれる。
-今日付の _posts/ファイルが存在すれば、Googleマップ投稿用の
-テキストを含めた通知メールを送る。
+今日付の _posts/ファイルが存在すれば、Googleマップ投稿用・
+LINE VOOM投稿用のテキストを含めた通知メールを送る。
 """
 
 from __future__ import annotations
@@ -100,6 +100,23 @@ URL　　 ：{post['url']}
 
 👉 上記を Google Business Profile の投稿画面にコピペしてください
 📱 投稿画面：https://business.google.com/posts
+
+─────────────────────
+📱 LINE VOOM 投稿用テキスト（コピペ用）
+─────────────────────
+
+{post['title']}
+
+{post['excerpt']}
+
+続きはこちら👇
+{post['url']}
+
+─────────────────────
+
+👉 上記を LINE VOOM Studio の投稿画面にコピペしてください
+　（動画＋テキスト／画像＋テキスト どちらでも文章は同じでOK）
+📱 投稿画面：https://voom-studio.line.biz/
 
 このメールは GitHub Actions から自動送信されています。
 """
