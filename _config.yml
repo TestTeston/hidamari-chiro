@@ -3,6 +3,11 @@ lang: ja
 url: https://www.hidamari-chiro.jp
 permalink: /blog/:year:month:day.html
 timezone: Asia/Tokyo
+description: 愛知県小牧市のカイロプラクティック ひだまり。施術の合間の話から、体と暮らしのことを綴るブログです。
+plugins:
+  - jekyll-feed
+feed:
+  path: feed.xml
 
 defaults:
   - scope:
