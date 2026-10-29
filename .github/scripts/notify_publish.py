@@ -58,7 +58,9 @@ def parse_post(path: str) -> dict:
             continue
         if line.startswith("!") or line.startswith("#"):
             continue
-        clean = re.sub(r"[\*_`]", "", line)
+        # [文字](URL) のリンク記法は文字だけ残す
+        clean = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", line)
+        clean = re.sub(r"[\*_`]", "", clean)
         clean = re.sub(r"\\$", "", clean)
         if clean:
             excerpt_lines.append(clean)
