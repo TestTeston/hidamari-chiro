@@ -10,8 +10,8 @@ on:
         type: boolean
         default: false
   schedule:
-    # 毎日9時50分（JST）に再ビルド → 当日付の予約記事が公開される
-    - cron: '50 0 * * *'
+    # 毎日4時00分（JST）に再ビルド → 当日付の予約記事が公開される（GitHub側の遅れで実際は数時間後になることが多い）
+    - cron: '0 19 * * *'
 
 permissions:
   contents: read
