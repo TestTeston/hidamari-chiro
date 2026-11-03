@@ -25,9 +25,17 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      new_posts: ${{ steps.precheck.outputs.new_posts }}
     steps:
       - name: リポジトリをチェックアウト
         uses: actions/checkout@v4
+
+      # デプロイ前に本番を確認し、今日付の記事のうち初公開のものだけを記録する
+      # （pushのたびに通知メールが重複して届かないように）
+      - name: 初公開の記事を確認
+        id: precheck
+        run: python3 .github/scripts/notify_publish.py --precheck
 
       - name: Rubyセットアップ
         uses: ruby/setup-ruby@v1
@@ -61,7 +69,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
   notify:
-    needs: deploy
+    needs: [build, deploy]
     runs-on: ubuntu-latest
     steps:
       - name: リポジトリをチェックアウト
@@ -77,4 +85,5 @@ jobs:
           GMAIL_USER: ${{ secrets.NOTIFY_EMAIL }}
           GMAIL_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           NOTIFY_TEST: ${{ inputs.test_notify }}
+          NEW_POSTS: ${{ needs.build.outputs.new_posts }}
         run: python3 .github/scripts/notify_publish.py

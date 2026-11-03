@@ -4,6 +4,8 @@
 Jekyllビルド成功後にGitHub Actionsから呼ばれる。
 今日付の _posts/ファイルが存在すれば、Googleマップ投稿用の
 テキストを含めた通知メールを送る。
+ただしデプロイ前（--precheck）に本番を確認し、すでに公開済みの
+記事には送らない（同じ日に何度pushしても通知は1記事1回）。
 """
 
 from __future__ import annotations
@@ -15,6 +17,8 @@ import re
 import smtplib
 import sys
 import unicodedata
+import urllib.error
+import urllib.request
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import formataddr
@@ -123,9 +127,50 @@ def send_mail(post: dict) -> None:
         smtp.send_message(msg)
 
 
+def is_live(url: str) -> bool | None:
+    """本番にページがあれば True、なければ False、確認できなければ None。
+    CDNのキャッシュ（古い404）を避けるため、毎回違うクエリを付ける。"""
+    bust = f"{url}?check={int(datetime.datetime.now().timestamp())}"
+    try:
+        with urllib.request.urlopen(bust, timeout=15) as res:
+            return res.status == 200
+    except urllib.error.HTTPError as e:
+        return False if e.code == 404 else None
+    except Exception:
+        return None
+
+
+def precheck() -> int:
+    """デプロイ前に呼ぶ。今日付の記事のうち、まだ本番に出ていないもの
+    （＝今回が初公開のもの）だけを GITHUB_OUTPUT の new_posts に書き出す。
+    pushのたびにビルドが走っても、通知が1記事1回になるようにするため。"""
+    new_posts = []
+    for path in sorted(glob.glob(f"_posts/{TODAY}-*.md")):
+        live = is_live(parse_post(path)["url"])
+        if live:
+            print(f"公開済みのため通知しない: {path}")
+        else:
+            # 確認できなかった時（None）は、通知漏れを避けて送る側に倒す
+            print(f"初公開として通知する: {path}" + ("（公開状況を確認できず）" if live is None else ""))
+            new_posts.append(path)
+    out = os.environ.get("GITHUB_OUTPUT")
+    if out:
+        with open(out, "a", encoding="utf-8") as f:
+            f.write(f"new_posts={'|'.join(new_posts)}\n")
+    return 0
+
+
 def main() -> int:
+    if "--precheck" in sys.argv:
+        return precheck()
+
     posts = sorted(glob.glob(f"_posts/{TODAY}-*.md"))
     test_mode = os.environ.get("NOTIFY_TEST", "").strip().lower() == "true"
+
+    # precheck の結果があれば、初公開の記事だけに絞る（テストモードは除く）
+    if "NEW_POSTS" in os.environ and not test_mode:
+        new_posts = set(filter(None, os.environ["NEW_POSTS"].split("|")))
+        posts = [p for p in posts if p in new_posts]
 
     if not posts and test_mode:
         all_posts = sorted(glob.glob("_posts/*.md"))
@@ -134,7 +179,7 @@ def main() -> int:
             print(f"[テストモード] 最新記事で通知テスト: {posts[0]}")
 
     if not posts:
-        print(f"今日（{TODAY}）公開の新規記事なし。通知スキップ。")
+        print(f"今日（{TODAY}）初公開の記事なし。通知スキップ。")
         return 0
 
     for path in posts:
